@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LandPageComponent } from './land-page/land-page.component';
 import { CategoryComponent } from './category/category.component';
 import { FoodComponent } from './food/food.component';
+import { CategoriesService } from './category/category.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { FoodComponent } from './food/food.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CategoriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

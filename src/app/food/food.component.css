@@ -1,3 +1,21 @@
 select:not([multiple]) {
     display: initial !important;
 }
+
+h5 {
+    font-size: 28px;
+    font-family: 'Londrina Solid', cursive;
+    letter-spacing: 2px;
+}
+
+input {    
+    font-size: 15px;
+    font-family: 'Londrina Solid', cursive;
+    letter-spacing: 2px;
+}
+
+select {    
+    font-size: 15px;
+    font-family: 'Londrina Solid', cursive;
+    letter-spacing: 2px;
+}
