@@ -1,39 +1,22 @@
 <div class="container contact">
     <h5>Cadastro de Categoria</h5>
-
-    <hr />
-
+  
     <div class="row">
-        <div class="col s12">
-            <div
-                id = "msg-cadCateg"
-                class="card-panel red white-text"
-                style="display: none"
-                >
-            </div>
+      <div class="col s12">
+        <div id="msg-cadCateg" class="card-panel red white-text" style="display: none"></div>
+      </div>
+  
+      <form class="col s12" (ngSubmit)="onFormSubmit()">
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="category-description" type="text" [(ngModel)]="categoryDescription" />
+            <label>Descrição da Categoria</label>
+          </div>
         </div>
-    
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input name="category-description"
-                    type="text"
-                    (keydown.enter)="onEnterKey()"/>
-
-                    <label for="category-description">Descrição da Categoria</label>
-                </div>
-            </div>
-            <button
-                class="btn waves-effect waves-light amber darken-4"
-                type="submit"
-                (click)="this.onButtonClick()">
-                Salvar 
-                <i class="material-icons right">send</i>
-            </button>
-
-        </form>
+        <button class="btn waves-effect waves-light red lighten-1" type="submit" (click)="this.onButtonClick()">
+          Salvar 
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
     </div>
-
-
-
-</div>
+  </div>  
