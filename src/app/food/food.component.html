@@ -6,18 +6,42 @@
       <div id="msg-cadFood" class="card-panel red white-text" style="display: none"></div>
     </div>
 
-    <form class="col s12" (ngSubmit)="onSaveClick()" #foodForm="ngForm">
+    <form class="col s12" #form="ngForm" (ngSubmit)="onSaveClick()" #foodForm="ngForm">
       <div class="row">
         <div class="input-field col s12">
-          <input name="food-description" type="text" [(ngModel)]="foodDescription" />
-          <label>Descrição do Alimento</label>
+          <input 
+            id="food-description"
+            name="food-description" 
+            type="text" 
+            class="validate"
+            [(ngModel)]="foodDescription"
+            pattern="[a-zA-ZÀ-ÖØ-öø-ÿ]{3,}"
+            #name="ngModel"
+            required 
+          />
+          <label for="food-description">Descrição do Alimento</label>
+          <div class="red-text" [hidden]="name.valid || name.untouched">
+            Por favor, informe uma descrição válida para o alimento (mínimo 3 caracteres).
+          </div>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12">
-          <input name="cal" type="number" [(ngModel)]="calories" />
-          <label>Quantidade de Calorias</label>
+          <input 
+            id="cal"
+            name="cal" 
+            type="number" 
+            class="validate"
+            [(ngModel)]="calories" 
+            pattern="^[1-9]\d*$"
+            #name="ngModel"
+            required 
+          />
+          <label for="cal">Quantidade de Calorias</label>
+          <div class="red-text" [hidden]="name.valid || name.untouched">
+            Por favor, informe uma quantidade de calorias acima de zero.
+          </div>
         </div>
       </div>
 
@@ -59,7 +83,7 @@
         </div>
       </div>
 
-      <button class="btn waves-effect waves-light red lighten-1" type="submit"  (click)="this.onButtonClick()">   
+      <button class="btn waves-effect waves-light red lighten-1" type="submit"  (click)="this.onButtonClick()" [disabled]="!form.valid">   
         Salvar
         <i class="material-icons right">send</i>
       </button>

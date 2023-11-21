@@ -6,14 +6,26 @@
         <div id="msg-cadCateg" class="card-panel red white-text" style="display: none"></div>
       </div>
   
-      <form class="col s12" (ngSubmit)="onFormSubmit()">
+      <form class="col s12" #form="ngForm" (ngSubmit)="onFormSubmit()">
         <div class="row">
           <div class="input-field col s12">
-            <input name="category-description" type="text" [(ngModel)]="categoryDescription" />
-            <label>Descrição da Categoria</label>
+            <input
+            id="input-description"
+            name="input-description"
+            type="text"
+            class="validate"
+            [(ngModel)]="categoryDescription"
+            pattern="[a-zA-ZÀ-ÖØ-öø-ÿ]{3,}"
+            #name="ngModel"
+            required
+            />
+            <label for="input-description">Descrição da Categoria</label>
+            <div class="red-text" [hidden]="name.valid || name.untouched">
+              Por favor, informe uma descrição válida para a categoria (mínimo 3 caracteres).
+            </div>
           </div>
         </div>
-        <button class="btn waves-effect waves-light red lighten-1" type="submit" (click)="this.onButtonClick()">
+        <button class="btn waves-effect waves-light red lighten-1" type="submit" (click)="this.onButtonClick()" [disabled]="!form.valid">
           Salvar 
           <i class="material-icons right">send</i>
         </button>
