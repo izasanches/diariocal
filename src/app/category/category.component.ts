@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+
 import { CategoriesService } from './category.service';
 
 @Component({
@@ -34,12 +35,17 @@ export class CategoryComponent  implements OnInit {
 
   categoryDescription: string = '';
 
+  isSubmitted!: boolean;
+  isShowMessage!: boolean;
+  isSuccess!: boolean;
+  message!: string;
+
   ngOnInit(): void {
   
   }
 
   onButtonClick() {
-    alert('Categoria salva!')
+    //alert('Categoria salva!')
   }
 
   onEnterKey() {
@@ -52,6 +58,11 @@ export class CategoryComponent  implements OnInit {
     if(this.categoryDescription != '') {
       this.categoriesService.addCategory(this.categoryDescription);
       this.categoryDescription = '';
+
+      this.isShowMessage = true;
+      this.isSuccess = true;
+      this.message = 'Cadastro realizado com sucesso!';
+
     }
   }
 

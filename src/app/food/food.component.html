@@ -2,11 +2,18 @@
   <h5>Cadastro de Alimento</h5>
 
   <div class="row">
-    <div class="col s12">
-      <div id="msg-cadFood" class="card-panel red white-text" style="display: none"></div>
+    <div class="col s12">              
+      <div
+        id = "msg-categ"
+        class="card-panel white-text"
+        [class.red]="!this.isSuccess"
+        [class.pink]="this.isSuccess"
+        *ngIf="this.isShowMessage">
+        {{this.message}}
+      </div>
     </div>
 
-    <form class="col s12" #form="ngForm" (ngSubmit)="onSaveClick()" #foodForm="ngForm">
+    <form class="col s12" #form="ngForm" (ngSubmit)="onSaveClick()">
       <div class="row">
         <div class="input-field col s12">
           <input 
@@ -76,9 +83,17 @@
       <div class="row">
         <label>Categoria</label>
         <div class="input-field col s12">
-          <select name="category" [(ngModel)]="selectedCategory" #categorySelect="ngModel">
+          <select 
+            name="category" 
+            [(ngModel)]="selectedCategory" 
+            #categorySelect="ngModel"            
+            required>
             <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-          </select>          
+          </select>  
+
+          <div class="red-text" [hidden]="name.valid || name.untouched">
+            Por favor, selecione a categoria.
+          </div>        
         </div>
       </div>
 

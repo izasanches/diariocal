@@ -29,6 +29,11 @@ export class FoodComponent implements AfterViewInit {
   unit: string = 'grams';
   isFresh: boolean = false;
 
+  isSubmitted!: boolean;
+  isShowMessage!: boolean;
+  isSuccess!: boolean;
+  message!: string;
+
   constructor(private categoriesService: CategoriesService) {   
     this.updateCategories();
   }
@@ -49,11 +54,16 @@ export class FoodComponent implements AfterViewInit {
       category: this.selectedCategory
     };
 
+    this.isShowMessage = true;
+    this.isSuccess = true;
+    this.message = 'Cadastro realizado com sucesso!';
+
     this.saveFood.emit(foodData);
+    this.clearFields();
   }
 
   onButtonClick() {
-    alert('Alimento salvo!')
+    //alert('Alimento salvo!')
   }
 
   onEnterKey() {
