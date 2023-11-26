@@ -5,9 +5,9 @@
       <div class="col s12">  
         <div
           id = "msg-categ"
-          class="card-panel white-text"
+          class="card-panel black-text"
           [class.red]="!this.isSuccess"
-          [class.pink]="this.isSuccess"
+          [style.background-color]="this.isSuccess ? '#fce4ec' : ''"
           *ngIf="this.isShowMessage">
           {{this.message}}
         </div>
