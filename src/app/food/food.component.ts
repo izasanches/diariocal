@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { CategoriesService } from '../category/category.service';
+import { CategorieService } from '../category/category.service';
 
 
 @Component({
@@ -34,12 +34,12 @@ export class FoodComponent implements AfterViewInit {
   isSuccess!: boolean;
   message!: string;
 
-  constructor(private categoriesService: CategoriesService) {   
+  constructor(private categorieService: CategorieService) {   
     this.updateCategories();
   }
 
   private updateCategories(): void {
-    this.categories = this.categoriesService.getCategories();    
+    this.categories = this.categorieService.getCategories().map(category => category.description);
   }
 
   ngAfterViewInit(): void {

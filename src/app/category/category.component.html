@@ -21,7 +21,7 @@
             name="input-description"
             type="text"
             class="validate"
-            [(ngModel)]="categoryDescription"
+            [(ngModel)]="this.category.description"
             pattern="[a-zA-ZÀ-ÖØ-öø-ÿ]{3,}"
             #name="ngModel"
             required
@@ -38,4 +38,33 @@
         </button>
       </form>
     </div>
+
+    <h5>Categorias cadastradas</h5>
+    <table class="highlight" *ngIf="categories && categories!.length > 0">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of categories">
+          <td> {{ item.description }}</td>
+          <td class="right">
+            <a><i 
+                class="material-icons my-icon-size" 
+                (click)="onEdit(item)">
+                edit</i>
+            </a>
+            <a><i 
+                class="material-icons my-icon-size" 
+                (click)="onDelete(item.description)">
+              delete</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>    
+    </table>
+
+    <div></div>
   </div>  
