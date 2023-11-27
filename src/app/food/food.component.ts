@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { CategoriesService } from '../category/category.service';
+import { CategorieService } from '../category/category.service';
 
 
 @Component({
@@ -29,12 +29,17 @@ export class FoodComponent implements AfterViewInit {
   unit: string = 'grams';
   isFresh: boolean = false;
 
-  constructor(private categoriesService: CategoriesService) {   
+  isSubmitted!: boolean;
+  isShowMessage!: boolean;
+  isSuccess!: boolean;
+  message!: string;
+
+  constructor(private categorieService: CategorieService) {   
     this.updateCategories();
   }
 
   private updateCategories(): void {
-    this.categories = this.categoriesService.getCategories();    
+    this.categories = this.categorieService.getCategories().map(category => category.description);
   }
 
   ngAfterViewInit(): void {
@@ -49,11 +54,16 @@ export class FoodComponent implements AfterViewInit {
       category: this.selectedCategory
     };
 
+    this.isShowMessage = true;
+    this.isSuccess = true;
+    this.message = 'Cadastro realizado com sucesso!';
+
     this.saveFood.emit(foodData);
+    this.clearFields();
   }
 
   onButtonClick() {
-    alert('Alimento salvo!')
+    //alert('Alimento salvo!')
   }
 
   onEnterKey() {
