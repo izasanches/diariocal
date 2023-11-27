@@ -1,4 +1,4 @@
 {
-    "/categories": "/categories",
-    "/categories/:id": "/categories/:id"
+    "/categorias": "/categories",
+    "/alimentos": "/foods"
 }

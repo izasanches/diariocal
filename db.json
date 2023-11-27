@@ -1,5 +1,5 @@
 {
-  "category": [
+  "categories": [
     {
       "id": 1,
       "description": "Vegetal"
@@ -11,6 +11,24 @@
     {
       "id": 3,
       "description": "Laticinios"
+    }
+  ],
+  "foods": [
+    {
+      "id": 1,
+      "description": "Couve-flor",
+      "quantityCal": 70,
+      "unit": "grams",
+      "is_fresh": true,
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "description": "Batata",
+      "quantityCal": 120,
+      "unit": "grams",
+      "is_fresh": true,
+      "categoryId": 1
     }
   ]
 }
