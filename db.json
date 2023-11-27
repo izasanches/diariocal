@@ -1,0 +1,16 @@
+{
+  "category": [
+    {
+      "id": 1,
+      "description": "Vegetal"
+    },
+    {
+      "id": 2,
+      "description": "Massa"
+    },
+    {
+      "id": 3,
+      "description": "Laticinios"
+    }
+  ]
+}
