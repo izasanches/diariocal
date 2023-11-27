@@ -1,8 +1,13 @@
 import { Category } from './../model/category';
 
 export class WebStorageUtil {
-  static get(key: string): any {
+  /*static get(key: string): any {
     return JSON.parse(localStorage.getItem(key)!);
+  }*/
+
+  static get(key: string): any {
+    const storedData = localStorage.getItem(key);
+    return storedData ? JSON.parse(storedData) : null;
   }
 
   static set(key: string, value: any) {

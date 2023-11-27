@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
+import { Constants } from 'src/app/util/constants';
 import { NgForm } from '@angular/forms';
 import { Shared } from '../util/shared';
 import { Category } from '../model/category';
 import { CategorieService } from './category.service';
+import { WebStorageUtil } from '../util/web-storage-util'; 
 
 @Component({
   selector: 'app-category',
@@ -39,7 +41,7 @@ export class CategoryComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
 
   category!: Category;
-  categories?: Category[];
+  categories?: Category[] = [];
 
   categoryDescription: string = '';
 
@@ -48,9 +50,12 @@ export class CategoryComponent implements OnInit {
   isSuccess!: boolean;
   message!: string;
 
+  categClone! : Category;
+
   ngOnInit(): void {
     Shared.initializeWebStorage();
     this.category = new Category('');
+    console.log("ngInit... " + this.categorieService.getCategories());
     this.categories = this.categorieService.getCategories();
   }
 
@@ -65,12 +70,20 @@ export class CategoryComponent implements OnInit {
   constructor(private categorieService: CategorieService) {}
 
   onFormSubmit(): void {
+    console.log("CLONE2... " + this.categClone.description);
     this.isSubmitted = true;
     console.log("description salva... " + this.category.description);
+
+    if(this.categClone != null) {
+      console.log("categclone... " + this.categClone.description);
+    }
+
     if (!this.categorieService.isExist(this.category.description)) {
       this.categorieService.save(this.category);
+      this.message = 'Cadastro realizado com sucesso!';
     } else {
       this.categorieService.update(this.category);
+      this.message = 'Atualização realizada com sucesso!';
     }
 
     this.isShowMessage = true;
@@ -88,6 +101,8 @@ export class CategoryComponent implements OnInit {
   onEdit(category: Category) {
     let clone = Category.clone(category);
     this.category = clone;
+    this.categClone = clone;
+    console.log("CLONE..." + this.categClone.description);
   }
 
   onDelete(description: string) {
