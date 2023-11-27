@@ -1,5 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { CategoriesService } from './category.service';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+
+import { Constants } from 'src/app/util/constants';
+import { NgForm } from '@angular/forms';
+import { Shared } from '../util/shared';
+import { Category } from '../model/category';
+import { CategorieService } from './category.service';
+import { WebStorageUtil } from '../util/web-storage-util'; 
 
 @Component({
   selector: 'app-category',
@@ -30,29 +36,83 @@ import { CategoriesService } from './category.service';
     </div>
   `
 })
-export class CategoryComponent  implements OnInit {
+export class CategoryComponent implements OnInit {
+
+  @ViewChild('form') form!: NgForm;
+
+  category!: Category;
+  categories?: Category[] = [];
 
   categoryDescription: string = '';
 
+  isSubmitted!: boolean;
+  isShowMessage: boolean = false;
+  isSuccess!: boolean;
+  message!: string;
+
+  descriptionUpdate! : string;
+
   ngOnInit(): void {
-  
+    Shared.initializeWebStorage();
+    this.category = new Category('');
+    console.log("ngInit... " + this.categorieService.getCategories());
+    this.categories = this.categorieService.getCategories();
   }
 
   onButtonClick() {
-    alert('Categoria salva!')
+    //alert('Categoria salva!')
   }
 
   onEnterKey() {
     this.onButtonClick();
   }
 
-  constructor(private categoriesService: CategoriesService) {}
+  constructor(private categorieService: CategorieService) {}
 
   onFormSubmit(): void {
-    if(this.categoryDescription != '') {
-      this.categoriesService.addCategory(this.categoryDescription);
-      this.categoryDescription = '';
+    this.isSubmitted = true;
+    
+    if (!this.categorieService.isExist(this.descriptionUpdate)) {
+      this.categorieService.save(this.category);
+      this.message = 'Cadastro realizado com sucesso!';
+    } else {
+      this.categorieService.update(this.category, this.descriptionUpdate);
+      this.message = 'Atualização realizada com sucesso!';
     }
+
+    this.isShowMessage = true;
+    this.isSuccess = true;
+    this.form.reset();
+    this.category = new Category('');
+    this.categories = this.categorieService.getCategories();
   }
 
+  onSubmit() {
+    
+  }
+
+  onEdit(category: Category) {
+    let clone = Category.clone(category);
+    this.category = clone;
+    this.descriptionUpdate = clone.description;
+    console.log("CLONE DESCRIPTION..." + this.descriptionUpdate);
+  }
+
+  onDelete(description: string) {
+    let confirmation = window.confirm('Você tem certeza que deseja remover a categoria ' +
+    description);
+    if (!confirmation) {
+      return;
+    }
+    let response: boolean = this.categorieService.delete(description);
+    this.isShowMessage = true;
+    this.isSuccess = response;
+    if (response) {
+      this.message = 'Categoria removida com sucesso!';
+    } else {
+      this.message = 'A categoria não pode ser removida!';
+    }
+    this.categories = this.categorieService.getCategories(); 
+  }
+ 
 }
