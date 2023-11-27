@@ -11,6 +11,7 @@ import { WebStorageUtil } from '../util/web-storage-util';
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
+  providers: [CategorieService],
   template: `
     <div class="container contact">
       <h5>Cadastro de Categoria</h5>
@@ -73,15 +74,42 @@ export class CategoryComponent implements OnInit {
     this.isSubmitted = true;
     
     if (!this.categorieService.isExist(this.descriptionUpdate)) {
-      this.categorieService.save(this.category);
-      this.message = 'Cadastro realizado com sucesso!';
-    } else {
-      this.categorieService.update(this.category, this.descriptionUpdate);
-      this.message = 'Atualização realizada com sucesso!';
-    }
 
-    this.isShowMessage = true;
-    this.isSuccess = true;
+      this.categorieService
+        .save(this.category)
+        .then(() => {
+          this.isSuccess = true;
+          this.isShowMessage = true;
+          this.message = "Cadastro realizado com sucesso!";
+          this.isSubmitted = true;
+
+        })
+        .catch((e) => {
+          this.isSuccess = false;
+          this.message = e;
+        })
+        .finally(() => {
+          console.log("Cadastro finalizado...");
+        });
+    } else {
+      this.categorieService
+        .update(this.category, this.descriptionUpdate)
+        .then(() => {
+          this.isSuccess = true;
+          this.isShowMessage = true;
+          this.message = "Atualização realizada com sucesso!";
+          this.isSubmitted = true;
+        })
+        .catch((e) => {
+          this.isSuccess = false;
+          this.message = e;
+        })
+        .finally(() => {
+          this.descriptionUpdate = '';
+          console.log("Atualização finalizada...");
+        });
+      }
+
     this.form.reset();
     this.category = new Category('');
     this.categories = this.categorieService.getCategories();

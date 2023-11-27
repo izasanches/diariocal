@@ -14,21 +14,36 @@ export class CategorieService {
     console.log("categories constructor... " + this.categories);
   }
   
-  save(category: any): void {
-    if (!Array.isArray(this.categories)) {
-      this.categories = [];
-    }
+  save(category: any): Promise<Category> {
+    const c = new Promise<Category>((resolve, reject) => {
+      if(category.description.length < 4) {
+        reject("Tamanho inválido para a descrição");
+      }
 
-    if (typeof category === 'object' && category !== null) {
-      this.categories.push(category);
-      WebStorageUtil.setArray(Constants.CATEGORIES_KEY, this.categories);
-    }
+      if (!Array.isArray(this.categories)) {
+        this.categories = [];
+      }
+  
+      if (typeof category === 'object' && category !== null) {        
+        this.categories.push(category);
+        WebStorageUtil.setArray(Constants.CATEGORIES_KEY, this.categories);
+        resolve(category);
+      }
+
+    });
+    
+    return c;
   }
 
-  update(category: Category, descriptionOld: string) {
-    this.categories = WebStorageUtil.getArray(Constants.CATEGORIES_KEY);
-    this.delete(descriptionOld);
-    this.save(category);
+  update(category: Category, descriptionOld: string): Promise<Category> {
+    const c = new Promise<Category>((resolve) => {
+      this.categories = WebStorageUtil.getArray(Constants.CATEGORIES_KEY);
+      this.delete(descriptionOld);
+      this.save(category);
+      resolve(category);
+    });
+
+    return c;
   }
   
   delete(description: string): boolean {
@@ -47,11 +62,14 @@ export class CategorieService {
 
     let result : boolean = false;
 
-    this.categories.forEach((category, index) => {      
-      if(category.description.toLowerCase==categoryName.toLowerCase) {
-        result = true;
-      }
-    });
+    if (categoryName && typeof categoryName === 'string') {
+      this.categories.forEach((category, index) => {  
+        if(category.description.toLowerCase() == categoryName.toLowerCase()) {        
+          result = true;
+        }    
+      });
+    }
+
     return result;
   }   
 
