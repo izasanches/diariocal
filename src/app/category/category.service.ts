@@ -9,8 +9,7 @@ import { WebStorageUtil } from '../util/web-storage-util';
 export class CategorieService {
   private categories: any[] = [];
 
-  constructor() {
-    //this.categories = WebStorageUtil.get(Constants.CATEGORIES_KEY);
+  constructor() {  
     this.categories = WebStorageUtil.getArray(Constants.CATEGORIES_KEY);
     console.log("categories constructor... " + this.categories);
   }
@@ -25,13 +24,13 @@ export class CategorieService {
       WebStorageUtil.setArray(Constants.CATEGORIES_KEY, this.categories);
     }
   }
-/*
-  update(category: Category) {
+
+  update(category: Category, descriptionOld: string) {
     this.categories = WebStorageUtil.getArray(Constants.CATEGORIES_KEY);
-    this.delete(category.description);
+    this.delete(descriptionOld);
     this.save(category);
-  }*/
-  update(category: Category) {
+  }
+ /* update(category: Category) {
     console.log("UPDATE");
     this.categories = WebStorageUtil.getArray(Constants.CATEGORIES_KEY);
   
@@ -49,11 +48,10 @@ export class CategorieService {
       // Atualizar o Local Storage com as categorias atualizadas
       WebStorageUtil.setArray(Constants.CATEGORIES_KEY, this.categories);
     }
-  }
+  }*/
 
   delete(description: string): boolean {
     this.categories = WebStorageUtil.getArray(Constants.CATEGORIES_KEY);
-    console.log("delete... categories: " + this.categories + "description: " + description);
   
     this.categories = this.categories.filter((categ) => {    
       return categ.description?.toLowerCase() !== description.toLowerCase();
@@ -65,9 +63,16 @@ export class CategorieService {
   }
 
   isExist(categoryName: string): boolean {   
-    return this.categories && Array.isArray(this.categories) &&
-      this.categories.some((category) => category.name === categoryName);
-  }
+
+    let result : boolean = false;
+
+    this.categories.forEach((category, index) => {      
+      if(category.description.toLowerCase==categoryName.toLowerCase) {
+        result = true;
+      }
+    });
+    return result;
+  }   
 
   getCategories(): Category[] {
     this.categories = WebStorageUtil.get(Constants.CATEGORIES_KEY);

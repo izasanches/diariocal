@@ -50,7 +50,7 @@ export class CategoryComponent implements OnInit {
   isSuccess!: boolean;
   message!: string;
 
-  categClone! : Category;
+  descriptionUpdate! : string;
 
   ngOnInit(): void {
     Shared.initializeWebStorage();
@@ -70,25 +70,18 @@ export class CategoryComponent implements OnInit {
   constructor(private categorieService: CategorieService) {}
 
   onFormSubmit(): void {
-    console.log("CLONE2... " + this.categClone.description);
     this.isSubmitted = true;
-    console.log("description salva... " + this.category.description);
-
-    if(this.categClone != null) {
-      console.log("categclone... " + this.categClone.description);
-    }
-
-    if (!this.categorieService.isExist(this.category.description)) {
+    
+    if (!this.categorieService.isExist(this.descriptionUpdate)) {
       this.categorieService.save(this.category);
       this.message = 'Cadastro realizado com sucesso!';
     } else {
-      this.categorieService.update(this.category);
+      this.categorieService.update(this.category, this.descriptionUpdate);
       this.message = 'Atualização realizada com sucesso!';
     }
 
     this.isShowMessage = true;
     this.isSuccess = true;
-    this.message = 'Cadastro realizado com sucesso!';
     this.form.reset();
     this.category = new Category('');
     this.categories = this.categorieService.getCategories();
@@ -101,8 +94,8 @@ export class CategoryComponent implements OnInit {
   onEdit(category: Category) {
     let clone = Category.clone(category);
     this.category = clone;
-    this.categClone = clone;
-    console.log("CLONE..." + this.categClone.description);
+    this.descriptionUpdate = clone.description;
+    console.log("CLONE DESCRIPTION..." + this.descriptionUpdate);
   }
 
   onDelete(description: string) {
