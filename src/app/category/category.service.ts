@@ -30,26 +30,7 @@ export class CategorieService {
     this.delete(descriptionOld);
     this.save(category);
   }
- /* update(category: Category) {
-    console.log("UPDATE");
-    this.categories = WebStorageUtil.getArray(Constants.CATEGORIES_KEY);
   
-    // Encontrar a categoria que precisa ser atualizada
-    const indexToUpdate = this.categories.findIndex((categ) => {
-      return categ.description?.toLowerCase() === category.description?.toLowerCase();
-    });
-
-    console.log("posição no vetor... " + indexToUpdate);
-  
-    // Se a categoria existir, atualizar a descrição
-    if (indexToUpdate !== -1) {
-      this.categories[indexToUpdate].description = category.description;
-  
-      // Atualizar o Local Storage com as categorias atualizadas
-      WebStorageUtil.setArray(Constants.CATEGORIES_KEY, this.categories);
-    }
-  }*/
-
   delete(description: string): boolean {
     this.categories = WebStorageUtil.getArray(Constants.CATEGORIES_KEY);
   
