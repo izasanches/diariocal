@@ -49,6 +49,14 @@
       "unit": "grams",
       "isFresh": true,
       "categoryId": 0
+    },
+    {
+      "id": "719",
+      "description": "Macarrão",
+      "quantityCal": 300,
+      "unit": "grams",
+      "isFresh": false,
+      "categoryId": 0
     }
   ]
 }

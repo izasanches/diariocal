@@ -2,12 +2,13 @@ import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterVie
 import { CategorieService } from '../category/category.service';
 import { Food } from '../model/food';
 import { FoodPromiseService } from './../services/food-promise.service';
+import { SharedDataService } from './../util/shared-data.service';
 
 @Component({
   selector: 'app-food',
   templateUrl: './food.component.html',
   styleUrls: ['./food.component.css'],
-  template: `
+  /*template: `
       <div class="input-field col s12">
         <select [(ngModel)]="selectedCategory" #categorySelect="ngModel">
           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
@@ -16,13 +17,17 @@ import { FoodPromiseService } from './../services/food-promise.service';
       </div>
   
       <button (click)="onSaveClick()">Salvar</button>
-  `
+  `*/
+  template: `
+    <div>{{ receivedData | async | json }}</div>
+  `,
 })
 export class FoodComponent implements AfterViewInit {
   @Input() categories: string[] = [];
   @Output() saveFood = new EventEmitter<any>();
   @ViewChild('categorySelect', { static: false }) categorySelect!: ElementRef;
   
+  receivedData: any;
   selectedCategory: string = '';
 
   foodDescription: string = '';
@@ -39,12 +44,24 @@ export class FoodComponent implements AfterViewInit {
   descriptionUpdate! : string;
 
   constructor(private categorieService: CategorieService,
-    private foodPromiseService: FoodPromiseService) {   
+    private foodPromiseService: FoodPromiseService,
+    private sharedDataService: SharedDataService) {   
     this.updateCategories();
   }
 
   ngOnInit(): void {
-    this.getAll();      
+    this.getAll();   
+    this.getData();
+  }
+
+  getData() {
+    this.sharedDataService.data$.subscribe((data) => {
+      this.receivedData = data;
+      console.log("categories received...");
+      if (this.receivedData && this.receivedData.getCategories) {
+        console.log("categories received:...", this.receivedData.getCategories());
+      }
+    });   
   }
 
   private updateCategories(): void {

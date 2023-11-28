@@ -6,6 +6,7 @@ import { Shared } from '../util/shared';
 import { Category } from '../model/category';
 import { CategorieService } from './category.service';
 import { WebStorageUtil } from '../util/web-storage-util'; 
+import { SharedDataService } from './../util/shared-data.service';
 
 @Component({
   selector: 'app-category',
@@ -68,7 +69,8 @@ export class CategoryComponent implements OnInit {
     this.onButtonClick();
   }
 
-  constructor(private categorieService: CategorieService) {}
+  constructor(private categorieService: CategorieService,
+    private sharedDataService: SharedDataService) {}
 
   onFormSubmit(): void {
     this.isSubmitted = true;
@@ -110,9 +112,15 @@ export class CategoryComponent implements OnInit {
         });
       }
 
-    this.form.reset();
+    this.sendData();
+    this.form.reset();    
     this.category = new Category('');
     this.categories = this.categorieService.getCategories();
+  }
+
+  sendData() {
+    const data = this.category;
+    this.sharedDataService.setData(data);
   }
 
   onSubmit() {
