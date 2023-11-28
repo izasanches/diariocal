@@ -58,9 +58,6 @@ export class FoodComponent implements AfterViewInit {
     this.sharedDataService.data$.subscribe((data) => {
       this.receivedData = data;
       console.log("categories received...");
-      if (this.receivedData && this.receivedData.getCategories) {
-        console.log("categories received:...", this.receivedData.getCategories());
-      }
     });   
   }
 
