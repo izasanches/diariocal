@@ -10,6 +10,7 @@ import { LandPageComponent } from './land-page/land-page.component';
 import { CategoryComponent } from './category/category.component';
 import { FoodComponent } from './food/food.component';
 import { CategorieService } from './category/category.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CategorieService } from './category/category.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [CategorieService],
   bootstrap: [AppComponent]

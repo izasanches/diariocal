@@ -2,6 +2,7 @@ import { Constants } from 'src/app/util/constants';
 import { Injectable } from '@angular/core';
 import { Category } from '../model/category';
 import { WebStorageUtil } from '../util/web-storage-util';
+//import { CategoryPromiseService } from './../services/category-promise.service';
 
 @Injectable({
   providedIn: 'root',

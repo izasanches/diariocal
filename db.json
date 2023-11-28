@@ -11,6 +11,18 @@
     {
       "id": 3,
       "description": "Laticinios"
+    },
+    {
+      "id": "776",
+      "description": "KKK"
+    },
+    {
+      "id": "777",
+      "description": "LLL"
+    },
+    {
+      "id": "883",
+      "description": "KKKpp"
     }
   ],
   "foods": [
@@ -19,7 +31,7 @@
       "description": "Couve-flor",
       "quantityCal": 70,
       "unit": "grams",
-      "is_fresh": true,
+      "isFresh": true,
       "categoryId": 1
     },
     {
@@ -27,8 +39,16 @@
       "description": "Batata",
       "quantityCal": 120,
       "unit": "grams",
-      "is_fresh": true,
+      "isFresh": true,
       "categoryId": 1
+    },
+    {
+      "id": "707",
+      "description": "Couve",
+      "quantityCal": 80,
+      "unit": "grams",
+      "isFresh": true,
+      "categoryId": 0
     }
   ]
 }

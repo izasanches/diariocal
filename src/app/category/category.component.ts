@@ -11,7 +11,6 @@ import { WebStorageUtil } from '../util/web-storage-util';
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
-  providers: [CategorieService],
   template: `
     <div class="container contact">
       <h5>Cadastro de Categoria</h5>
@@ -55,6 +54,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     Shared.initializeWebStorage();
+    this.category = WebStorageUtil.get(Constants.DESCRIPTION_KEY);    
     this.category = new Category('');
     console.log("ngInit... " + this.categorieService.getCategories());
     this.categories = this.categorieService.getCategories();
