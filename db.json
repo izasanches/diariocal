@@ -31,64 +31,21 @@
       "description": "Couve-flor",
       "quantityCal": 70,
       "unit": "grams",
-      "isFresh": true,
-      "categoryId": 1
+      "isFresh": true
     },
     {
       "id": 2,
       "description": "Batata",
       "quantityCal": 120,
       "unit": "grams",
-      "isFresh": true,
-      "categoryId": 1
+      "isFresh": true
     },
     {
-      "id": 3,
-      "description": "Leite",
-      "quantityCal": 120,
-      "unit": "ml",
-      "isFresh": false,
-      "categoryId": 1
-    },
-    {
-      "id": 696,
-      "description": "Ovo",
-      "quantityCal": 89,
-      "unit": "grams",
-      "isFresh": false,
-      "categoryId": 0
-    },
-    {
-      "id": 538,
-      "description": "KKK",
+      "id": 98,
+      "description": "Macarrão",
       "quantityCal": 90,
       "unit": "grams",
-      "isFresh": false,
-      "categoryId": 0
-    },
-    {
-      "id": 679,
-      "description": "Espinafre",
-      "quantityCal": 89,
-      "unit": "grams",
-      "isFresh": false,
-      "categoryId": 0
-    },
-    {
-      "id": 281,
-      "description": "Espinafreeee",
-      "quantityCal": 900,
-      "unit": "grams",
-      "isFresh": true,
-      "categoryId": 0
-    },
-    {
-      "id": 946,
-      "description": "Arrooz",
-      "quantityCal": 90,
-      "unit": "grams",
-      "isFresh": false,
-      "categoryId": 0
+      "isFresh": false
     }
   ]
 }

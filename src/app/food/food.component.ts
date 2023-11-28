@@ -42,6 +42,7 @@ export class FoodComponent implements AfterViewInit {
   ngOnInit(): void {
     this.getAll();   
     this.getData();
+    this.food = new Food('',0,'grams',false);  
   }
 
   getData() {
@@ -64,7 +65,6 @@ export class FoodComponent implements AfterViewInit {
       {
         next: (data: Food[]) => {          
           this.foods = data;
-          this.food = new Food('',0,'grams',false,0);  
         },
         error: (error) => {
           console.log(error);
@@ -92,10 +92,8 @@ export class FoodComponent implements AfterViewInit {
     } else {
       this.food.isFresh = false;
     }
-    console.log("unit...." + this.unit);
     this.food.unit = this.unit;
 
-    console.log("CATEGORIA....." + this.selectedCategory);
     
     this.foodObservableService
     .save(this.food)
@@ -106,8 +104,8 @@ export class FoodComponent implements AfterViewInit {
           this.isShowMessage = true;
           this.message = "Cadastro realizado com sucesso!";
           this.isSubmitted = true;
-          window.location.reload();
-          //this.updateFoodList();
+          //window.location.reload();
+          this.updateFoodList();
         },
         error: (error) => {
           this.isSuccess = false;
@@ -144,6 +142,7 @@ export class FoodComponent implements AfterViewInit {
     this.calories = 0;    
     this.unit = 'grams';
     this.isFresh = false;
+    this.food = new Food('',0,'grams',false);  
     console.log("campos limpos...")
   }
 
