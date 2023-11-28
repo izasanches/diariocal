@@ -43,17 +43,49 @@
       "categoryId": 1
     },
     {
-      "id": "707",
-      "description": "Couve",
-      "quantityCal": 80,
+      "id": 3,
+      "description": "Leite",
+      "quantityCal": 120,
+      "unit": "ml",
+      "isFresh": false,
+      "categoryId": 1
+    },
+    {
+      "id": 696,
+      "description": "Ovo",
+      "quantityCal": 89,
+      "unit": "grams",
+      "isFresh": false,
+      "categoryId": 0
+    },
+    {
+      "id": 538,
+      "description": "KKK",
+      "quantityCal": 90,
+      "unit": "grams",
+      "isFresh": false,
+      "categoryId": 0
+    },
+    {
+      "id": 679,
+      "description": "Espinafre",
+      "quantityCal": 89,
+      "unit": "grams",
+      "isFresh": false,
+      "categoryId": 0
+    },
+    {
+      "id": 281,
+      "description": "Espinafreeee",
+      "quantityCal": 900,
       "unit": "grams",
       "isFresh": true,
       "categoryId": 0
     },
     {
-      "id": "719",
-      "description": "Macarrão",
-      "quantityCal": 300,
+      "id": 946,
+      "description": "Arrooz",
+      "quantityCal": 90,
       "unit": "grams",
       "isFresh": false,
       "categoryId": 0

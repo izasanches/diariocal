@@ -1,5 +1,5 @@
 export class Food {
-    public id!:string;
+    public id!:number;
     public description:string;
     public quantityCal:number;
     public unit: string;
@@ -7,7 +7,7 @@ export class Food {
     public categoryId: number;
 
     constructor(description: string, quantityCal: number, unit: string, isFresh:boolean, categoryId: number) {
-        this.id = String(Math.round(Math.random() * 1000));
+        this.id = Math.round(Math.random() * 1000);
         this.description = description;
         this.quantityCal = quantityCal;
         this.unit = unit;

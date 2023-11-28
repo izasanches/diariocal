@@ -22,7 +22,7 @@
             type="text" 
             class="validate"
             [(ngModel)]="foodDescription"
-            pattern="[a-zA-ZÀ-ÖØ-öø-ÿ]{3,}"
+            pattern="^[a-zA-ZÀ-ÖØ-öø-ÿ]+(?:\s+[a-zA-ZÀ-ÖØ-öø-ÿ]+)*$"
             required 
           />
           <label for="food-description">Descrição do Alimento</label>
@@ -119,8 +119,8 @@
         <tr *ngFor="let item of foods">
           <td> {{ item.description }}</td>
           <td> {{ item.quantityCal }}</td>
-          <td> {{ item.unit }}</td>
-          <td> {{ item.isFresh }}</td>
+          <td> {{ item.unit | uppercase }}</td>
+          <td> {{ item.isFresh ? 'Sim' : 'Não' }}</td>
           <td class="right">
            <!-- <a><i 
                 class="material-icons my-icon-size" 
