@@ -103,4 +103,39 @@
       </button>
     </form>
   </div>
+
+  <h5>Alimentos cadastrados</h5>
+    <table class="highlight" *ngIf="foods && foods!.length > 0">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Quant. Cal.</th>
+          <th>Unidade Medida</th>
+          <th>Fresco?</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of foods">
+          <td> {{ item.description }}</td>
+          <td> {{ item.quantityCal }}</td>
+          <td> {{ item.unit }}</td>
+          <td> {{ item.isFresh }}</td>
+          <td class="right">
+           <!-- <a><i 
+                class="material-icons my-icon-size" 
+                (click)="onEdit(item)">
+                edit</i>
+            </a>-->
+            <a><i 
+                class="material-icons my-icon-size" 
+                (click)="onDelete(item)">
+              delete</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>    
+    </table>
+
+    <div></div>
 </div>

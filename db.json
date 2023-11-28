@@ -1,0 +1,62 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "description": "Vegetal"
+    },
+    {
+      "id": 2,
+      "description": "Massa"
+    },
+    {
+      "id": 3,
+      "description": "Laticinios"
+    },
+    {
+      "id": "776",
+      "description": "KKK"
+    },
+    {
+      "id": "777",
+      "description": "LLL"
+    },
+    {
+      "id": "883",
+      "description": "KKKpp"
+    }
+  ],
+  "foods": [
+    {
+      "id": 1,
+      "description": "Couve-flor",
+      "quantityCal": 70,
+      "unit": "grams",
+      "isFresh": true,
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "description": "Batata",
+      "quantityCal": 120,
+      "unit": "grams",
+      "isFresh": true,
+      "categoryId": 1
+    },
+    {
+      "id": "707",
+      "description": "Couve",
+      "quantityCal": 80,
+      "unit": "grams",
+      "isFresh": true,
+      "categoryId": 0
+    },
+    {
+      "id": "719",
+      "description": "Macarrão",
+      "quantityCal": 300,
+      "unit": "grams",
+      "isFresh": false,
+      "categoryId": 0
+    }
+  ]
+}

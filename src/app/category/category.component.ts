@@ -6,6 +6,7 @@ import { Shared } from '../util/shared';
 import { Category } from '../model/category';
 import { CategorieService } from './category.service';
 import { WebStorageUtil } from '../util/web-storage-util'; 
+import { SharedDataService } from './../util/shared-data.service';
 
 @Component({
   selector: 'app-category',
@@ -54,6 +55,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     Shared.initializeWebStorage();
+    this.category = WebStorageUtil.get(Constants.DESCRIPTION_KEY);    
     this.category = new Category('');
     console.log("ngInit... " + this.categorieService.getCategories());
     this.categories = this.categorieService.getCategories();
@@ -67,24 +69,58 @@ export class CategoryComponent implements OnInit {
     this.onButtonClick();
   }
 
-  constructor(private categorieService: CategorieService) {}
+  constructor(private categorieService: CategorieService,
+    private sharedDataService: SharedDataService) {}
 
   onFormSubmit(): void {
     this.isSubmitted = true;
     
     if (!this.categorieService.isExist(this.descriptionUpdate)) {
-      this.categorieService.save(this.category);
-      this.message = 'Cadastro realizado com sucesso!';
-    } else {
-      this.categorieService.update(this.category, this.descriptionUpdate);
-      this.message = 'Atualização realizada com sucesso!';
-    }
 
-    this.isShowMessage = true;
-    this.isSuccess = true;
-    this.form.reset();
+      this.categorieService
+        .save(this.category)
+        .then(() => {
+          this.isSuccess = true;
+          this.isShowMessage = true;
+          this.message = "Cadastro realizado com sucesso!";
+          this.isSubmitted = true;
+
+        })
+        .catch((e) => {
+          this.isSuccess = false;
+          this.message = e;
+        })
+        .finally(() => {
+          console.log("Cadastro finalizado...");
+        });
+    } else {
+      this.categorieService
+        .update(this.category, this.descriptionUpdate)
+        .then(() => {
+          this.isSuccess = true;
+          this.isShowMessage = true;
+          this.message = "Atualização realizada com sucesso!";
+          this.isSubmitted = true;
+        })
+        .catch((e) => {
+          this.isSuccess = false;
+          this.message = e;
+        })
+        .finally(() => {
+          this.descriptionUpdate = '';
+          console.log("Atualização finalizada...");
+        });
+      }
+
+    this.sendData();
+    this.form.reset();    
     this.category = new Category('');
     this.categories = this.categorieService.getCategories();
+  }
+
+  sendData() {
+    const data = this.category;
+    this.sharedDataService.setData(data);
   }
 
   onSubmit() {
