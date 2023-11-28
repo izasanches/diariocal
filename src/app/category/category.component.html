@@ -1,0 +1,70 @@
+<div class="container contact">
+    <h5>Cadastro de Categoria</h5>
+  
+    <div class="row">
+      <div class="col s12">  
+        <div
+          id = "msg-categ"
+          class="card-panel black-text"
+          [class.red]="!this.isSuccess"
+          [style.background-color]="this.isSuccess ? '#fce4ec' : ''"
+          *ngIf="this.isShowMessage">
+          {{this.message}}
+        </div>
+      </div>
+  
+      <form class="col s12" #form="ngForm" (ngSubmit)="onFormSubmit()">
+        <div class="row">
+          <div class="input-field col s12">
+            <input
+            id="input-description"
+            name="input-description"
+            type="text"
+            class="validate"
+            [(ngModel)]="this.category.description"
+            pattern="[a-zA-ZÀ-ÖØ-öø-ÿ]{3,}"
+            #name="ngModel"
+            required
+            />
+            <label for="input-description">Descrição da Categoria</label>
+            <div class="red-text" [hidden]="name.valid || name.untouched">
+              Por favor, informe uma descrição válida para a categoria (mínimo 3 caracteres).
+            </div>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light red lighten-1" type="submit" (click)="this.onButtonClick()" [disabled]="!form.valid">
+          Salvar 
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+    </div>
+
+    <h5>Categorias cadastradas</h5>
+    <table class="highlight" *ngIf="categories && categories!.length > 0">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of categories">
+          <td> {{ item.description }}</td>
+          <td class="right">
+            <a><i 
+                class="material-icons my-icon-size" 
+                (click)="onEdit(item)">
+                edit</i>
+            </a>
+            <a><i 
+                class="material-icons my-icon-size" 
+                (click)="onDelete(item.description)">
+              delete</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>    
+    </table>
+
+    <div></div>
+  </div>  

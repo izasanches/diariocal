@@ -1,0 +1,141 @@
+<div class="container food-cadastro">
+  <h5>Cadastro de Alimento</h5>
+
+  <div class="row">
+    <div class="col s12">              
+      <div
+        id = "msg-categ"
+        class="card-panel black-text"
+        [class.red]="!this.isSuccess"
+        [style.background-color]="this.isSuccess ? '#fce4ec' : ''"
+        *ngIf="this.isShowMessage">
+        {{this.message}}
+      </div>
+    </div>
+
+    <form class="col s12" #form="ngForm" (ngSubmit)="onSaveClick()">
+      <div class="row">
+        <div class="input-field col s12">
+          <input 
+            id="food-description"
+            name="food-description" 
+            type="text" 
+            class="validate"
+            [(ngModel)]="foodDescription"
+            pattern="^[a-zA-ZÀ-ÖØ-öø-ÿ]+(?:\s+[a-zA-ZÀ-ÖØ-öø-ÿ]+)*$"
+            required 
+          />
+          <label for="food-description">Descrição do Alimento</label>
+          <div class="red-text" [hidden]="name.valid || name.untouched">
+            Por favor, informe uma descrição válida para o alimento (mínimo 3 caracteres).
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input 
+            id="cal"
+            name="cal" 
+            type="number" 
+            class="validate"
+            [(ngModel)]="calories" 
+            pattern="^[1-9]\d*$"
+            #name="ngModel"
+            required 
+          />
+          <label for="cal">Quantidade de Calorias</label>
+          <div class="red-text" [hidden]="name.valid || name.untouched">
+            Por favor, informe uma quantidade de calorias acima de zero.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label>A cada 100:</label>
+        <div class="col s12">
+          <p>
+            <label>
+              <input name="unit" type="radio" [(ngModel)]="unit" value="grams" checked />
+              <span>Gramas</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input name="unit" type="radio" [(ngModel)]="unit" value="ml" />
+              <span>ML</span>
+            </label>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <p>
+            <label>
+              <input name="isFresh" type="checkbox" [(ngModel)]="isFresh" />
+              <span>Alimento Fresco</span>
+            </label>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <label>Categoria</label>
+        <div class="input-field col s12">
+          <select 
+            name="category" 
+            [(ngModel)]="selectedCategory" 
+            #categorySelect="ngModel"            
+            required>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>  
+
+          <div class="red-text" [hidden]="name.valid || name.untouched">
+            Por favor, selecione a categoria.
+          </div>        
+        </div>
+      </div>
+
+      <button class="btn waves-effect waves-light red lighten-1" type="submit"  (click)="this.onButtonClick()" [disabled]="!form.valid">   
+        Salvar
+        <i class="material-icons right">send</i>
+      </button>
+    </form>
+  </div>
+
+  <h5>Alimentos cadastrados</h5>
+    <table class="highlight" *ngIf="foods && foods!.length > 0">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Quant. Cal.</th>
+          <th>Unidade Medida</th>
+          <th>Fresco?</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of foods">
+          <td> {{ item.description }}</td>
+          <td> {{ item.quantityCal }}</td>
+          <td> {{ item.unit | uppercase }}</td>
+          <td> {{ item.isFresh ? 'Sim' : 'Não' }}</td>
+          <td class="right">
+           <!-- <a><i 
+                class="material-icons my-icon-size" 
+                (click)="onEdit(item)">
+                edit</i>
+            </a>-->
+            <a><i 
+                class="material-icons my-icon-size" 
+                (click)="onDelete(item)">
+              delete</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>    
+    </table>
+
+    <div></div>
+</div>
