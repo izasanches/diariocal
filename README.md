@@ -1,27 +1,15 @@
-# Diariocal
+# diariocal-app
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
+Este projeto foi criado na disciplina de Frameworks no curso de pós graduação em Java pela instituição UTFPR, com o objetivo de aprimorar os conhecimentos em Angular.
+O app consiste em um cadastro de calorias diárias, onde o usuário cadastra o alimento e sua respectiva quantidade de calorias, e na sequência esse alimento pode ser usado no cadastro do dia, e assim o app irá calcular a quantidade de calorias consumidas durante o dia com base nesses cadastros, para cada dia é necessário um novo cadastro de diário, e para cada novo alimento também é necessário cadastrá-lo antes de ser usado no diário.
+A princípio as telas criadas serão de categoria e de alimento.
 
-## Development server
+O frontend da aplicação foi desenvolvido com Angular e o backend foi simulado pela implementação de uma API Fake, usando o JSON Server.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Endereço de Deploy - GitHub Pages
 
-## Code scaffolding
+*em progresso*
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Protótipo
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+https://www.figma.com/file/rsXlCPiCy4XUz5zlViECVq/Diariocal?type=design&mode=design&t=vK2bSGWWYSGvbSsp-0

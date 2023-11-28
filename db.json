@@ -31,32 +31,21 @@
       "description": "Couve-flor",
       "quantityCal": 70,
       "unit": "grams",
-      "isFresh": true,
-      "categoryId": 1
+      "isFresh": true
     },
     {
       "id": 2,
       "description": "Batata",
       "quantityCal": 120,
       "unit": "grams",
-      "isFresh": true,
-      "categoryId": 1
+      "isFresh": true
     },
     {
-      "id": "707",
-      "description": "Couve",
-      "quantityCal": 80,
-      "unit": "grams",
-      "isFresh": true,
-      "categoryId": 0
-    },
-    {
-      "id": "719",
+      "id": 98,
       "description": "Macarrão",
-      "quantityCal": 300,
+      "quantityCal": 90,
       "unit": "grams",
-      "isFresh": false,
-      "categoryId": 0
+      "isFresh": false
     }
   ]
 }

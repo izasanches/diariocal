@@ -1,23 +1,13 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CategorieService } from '../category/category.service';
 import { Food } from '../model/food';
-import { FoodPromiseService } from './../services/food-promise.service';
+import { FoodObservableService } from '../services/food-observable.service';
 import { SharedDataService } from './../util/shared-data.service';
 
 @Component({
   selector: 'app-food',
   templateUrl: './food.component.html',
   styleUrls: ['./food.component.css'],
-  /*template: `
-      <div class="input-field col s12">
-        <select [(ngModel)]="selectedCategory" #categorySelect="ngModel">
-          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-        </select>
-        <label for="category">Categoria</label>
-      </div>
-  
-      <button (click)="onSaveClick()">Salvar</button>
-  `*/
   template: `
     <div>{{ receivedData | async | json }}</div>
   `,
@@ -44,7 +34,7 @@ export class FoodComponent implements AfterViewInit {
   descriptionUpdate! : string;
 
   constructor(private categorieService: CategorieService,
-    private foodPromiseService: FoodPromiseService,
+    private foodObservableService: FoodObservableService,
     private sharedDataService: SharedDataService) {   
     this.updateCategories();
   }
@@ -52,6 +42,7 @@ export class FoodComponent implements AfterViewInit {
   ngOnInit(): void {
     this.getAll();   
     this.getData();
+    this.food = new Food('',0,'grams',false);  
   }
 
   getData() {
@@ -69,15 +60,18 @@ export class FoodComponent implements AfterViewInit {
   }
 
   getAll() {
-    this.foodPromiseService
-    .getAll()
-    .then((f: Food[]) => {
-      this.food = new Food('',0,'grams',false,0);
-      this.foods = f;
-    })
-    .catch((e) => {
-      console.log("erro no getAll");
-    });
+    this.foodObservableService
+    .getAll().subscribe(
+      {
+        next: (data: Food[]) => {          
+          this.foods = data;
+        },
+        error: (error) => {
+          console.log(error);
+          alert(error.message);
+        }
+      }
+    );
   }
 
   onSaveClick() {
@@ -98,25 +92,39 @@ export class FoodComponent implements AfterViewInit {
     } else {
       this.food.isFresh = false;
     }
+    this.food.unit = this.unit;
+
     
-    this.foodPromiseService
-      .save(this.food)
-      .then(() => {
-        this.isSuccess = true;
-        this.isShowMessage = true;
-        this.message = "Cadastro realizado com sucesso!";
-        this.isSubmitted = true;
-        window.location.reload();
-      })
-      .catch((e) => {
-        this.isSuccess = false;
-        this.message = e;
-      })
-      .finally(() => {
-        console.log("Cadastro finalizado...");
-      });
+    this.foodObservableService
+    .save(this.food)
+    .subscribe(
+      {
+        next: () => {          
+          this.isSuccess = true;
+          this.isShowMessage = true;
+          this.message = "Cadastro realizado com sucesso!";
+          this.isSubmitted = true;
+          //window.location.reload();
+          this.updateFoodList();
+        },
+        error: (error) => {
+          this.isSuccess = false;
+          this.message = error;
+        },
+        complete: () => {
+          console.log("Cadastro finalizado...");
+          this.clearFields();
+        }
+      }
+    );
 
     this.saveFood.emit(foodData);
+  }
+  
+  updateFoodList() {
+    this.foodObservableService.getAll().subscribe((updatedList) => {
+        this.foods = updatedList;
+    });
   }
 
   onButtonClick() {
@@ -134,6 +142,7 @@ export class FoodComponent implements AfterViewInit {
     this.calories = 0;    
     this.unit = 'grams';
     this.isFresh = false;
+    this.food = new Food('',0,'grams',false);  
     console.log("campos limpos...")
   }
 
@@ -145,24 +154,30 @@ export class FoodComponent implements AfterViewInit {
   }
 
   onDelete(food: Food) {
-    let confirmation = window.confirm('Você tem certeza que deseja remover o  alimento ' +
+    let confirmation = window.confirm('Você tem certeza que deseja remover o alimento ' +
     food.description);
     if (!confirmation) {
       return;
     }
 
-    console.log("id do food:..." + food.id);
-    this.foodPromiseService.delete(food)
-    .then(() => {
-      this.isShowMessage = true;
-      this.message = 'Alimento removido com sucesso!';
-    })
-    .catch(() => {
-      this.isShowMessage = true;
-      this.message = 'O alimento não pode ser removido!';
-    });
-    
-    window.location.reload();
+    this.foodObservableService
+    .delete(food.id)
+    .subscribe(
+      {
+        next: () => {          
+          this.isShowMessage = true;
+          this.message = 'Alimento removido com sucesso!';
+          if (this.foods) {
+            this.foods = this.foods.filter(item => item.id !== food.id);
+          }
+          
+        },
+        error: (error) => {
+          this.isShowMessage = true;
+          this.message = 'O alimento não pode ser removido. Erro: ' + error;
+        }
+      }
+    );
   }
   
 }
