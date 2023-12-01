@@ -7,3 +7,9 @@
     font-family: 'Londrina Solid', cursive;
     letter-spacing: 2px;
 }
+
+.small-text-mobile {
+    font-family: 'Londrina Solid', cursive;
+    letter-spacing: 2px;
+    color: #FFF;
+}

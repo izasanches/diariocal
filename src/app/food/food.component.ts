@@ -104,7 +104,6 @@ export class FoodComponent implements AfterViewInit {
           this.isShowMessage = true;
           this.message = "Cadastro realizado com sucesso!";
           this.isSubmitted = true;
-          //window.location.reload();
           this.updateFoodList();
         },
         error: (error) => {
